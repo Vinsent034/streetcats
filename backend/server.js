@@ -17,10 +17,10 @@ app.use(express.json());
 // Servo le immagini caricate come file statici
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-// Rotte API (le collegheremo dopo)
-// app.use('/api/auth', require('./routes/authRoutes'));
-// app.use('/api/cats', require('./routes/catRoutes'));
-// app.use('/api/comments', require('./routes/commentRoutes'));
+// Rotte API
+app.use('/api/auth', require('./routes/authRoutes'));
+app.use('/api/cats', require('./routes/catRoutes'));
+app.use('/api/comments', require('./routes/commentRoutes'));
 
 // Rotta di test
 app.get('/', (req, res) => {
