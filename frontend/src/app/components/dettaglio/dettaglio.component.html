@@ -1,0 +1,108 @@
+<div class="dettaglio-container">
+
+  <!-- Caricamento -->
+  @if (caricamento) {
+    <div class="caricamento">
+      <p>Caricamento in corso...</p>
+    </div>
+  }
+
+  <!-- Errore -->
+  @if (errore) {
+    <div class="errore-box">
+      ⚠️ {{ errore }}
+      <br>
+      <a routerLink="/">← Torna alla home</a>
+    </div>
+  }
+
+  <!-- Contenuto gatto -->
+  @if (gatto && !caricamento) {
+    <div class="dettaglio-card">
+
+      <!-- Foto grande -->
+      <div class="foto-container">
+        <img
+          [src]="getUrlImmagine(gatto.immagine)"
+          [alt]="gatto.titolo"
+          class="foto-grande"
+          onerror="this.src=''"
+        >
+      </div>
+
+      <!-- Info gatto -->
+      <div class="info-gatto">
+        <h1>{{ gatto.titolo }}</h1>
+
+        <div class="meta">
+          <span>👤 {{ gatto.autore_nome }}</span>
+          <span>📅 {{ formattaData(gatto.creato_il) }}</span>
+        </div>
+
+        <!-- Descrizione in Markdown -->
+        <div class="descrizione" [innerHTML]="parseMarkdown(gatto.descrizione)"></div>
+
+        <!-- Bottone elimina gatto (solo per autore) -->
+        @if (isAutoreGatto()) {
+          <button class="btn-elimina" (click)="eliminaGatto()">
+            🗑️ Elimina gatto
+          </button>
+        }
+      </div>
+
+      <!-- Mappa piccola con posizione -->
+      <div class="sezione-mappa">
+        <h2>📍 Posizione</h2>
+        <div id="mappa-dettaglio" class="mappa-piccola"></div>
+      </div>
+
+      <!-- Sezione commenti -->
+      <div class="sezione-commenti">
+        <h2>💬 Commenti ({{ commenti.length }})</h2>
+
+        <!-- Lista commenti -->
+        @if (commenti.length === 0) {
+          <p class="nessun-commento">Nessun commento ancora. Sii il primo!</p>
+        }
+
+        @for (commento of commenti; track commento.id) {
+          <div class="commento-card">
+            <div class="commento-header">
+              <strong>{{ commento.autore_nome }}</strong>
+              <span class="commento-data">{{ formattaData(commento.creato_il) }}</span>
+
+              <!-- Elimina commento (solo autore) -->
+              @if (isAutoreCommento(commento)) {
+                <button class="btn-elimina-commento" (click)="eliminaCommento(commento.id)">
+                  🗑️
+                </button>
+              }
+            </div>
+            <p class="commento-testo">{{ commento.testo }}</p>
+          </div>
+        }
+
+        <!-- Form nuovo commento (solo se loggato) -->
+        @if (authService.isLoggato()) {
+          <div class="form-commento">
+            <h3>Aggiungi un commento</h3>
+            <textarea
+              [(ngModel)]="nuovoCommento"
+              placeholder="Scrivi un commento..."
+              rows="3"
+            ></textarea>
+            <button class="btn-pubblica" (click)="aggiungiCommento()">
+              Pubblica commento
+            </button>
+          </div>
+        } @else {
+          <p class="login-prompt">
+            <a routerLink="/auth">Accedi</a> per lasciare un commento.
+          </p>
+        }
+
+      </div>
+    </div>
+  }
+
+</div>

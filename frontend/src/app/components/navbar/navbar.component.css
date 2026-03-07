@@ -1,0 +1,135 @@
+.navbar {
+  background-color: #2d6a4f;
+  padding: 0 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.navbar-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
+}
+
+.navbar-logo {
+  color: #fff;
+  font-size: 1.4rem;
+  font-weight: 800;
+  text-decoration: none;
+  letter-spacing: 1px;
+}
+
+.navbar-logo:hover {
+  color: #f4a261;
+}
+
+/* Lista link desktop */
+.navbar-links {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-links a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: color 0.2s;
+}
+
+.navbar-links a:hover {
+  color: #f4a261;
+}
+
+.utente-nome {
+  color: #b7e4c7;
+  font-size: 0.9rem;
+  margin-right: 0.5rem;
+}
+
+/* Bottoni nella navbar */
+.btn-nav {
+  background-color: #f4a261;
+  color: #fff !important;
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  font-weight: 700;
+  transition: background-color 0.2s;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-family: 'Nunito', sans-serif;
+}
+
+.btn-nav:hover {
+  background-color: #e76f51;
+}
+
+.btn-logout {
+  background-color: transparent;
+  border: 2px solid #f4a261 !important;
+  color: #f4a261 !important;
+}
+
+.btn-logout:hover {
+  background-color: #f4a261;
+  color: #fff !important;
+}
+
+/* Hamburger button - nascosto su desktop */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.hamburger span {
+  display: block;
+  width: 25px;
+  height: 3px;
+  background-color: #fff;
+  border-radius: 3px;
+  transition: all 0.3s;
+}
+
+/* Responsive mobile */
+@media (max-width: 768px) {
+  .hamburger {
+    display: flex;
+  }
+
+  .navbar-links {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    right: 0;
+    background-color: #2d6a4f;
+    padding: 1rem;
+    gap: 1rem;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  }
+
+  .navbar-links.attivo {
+    display: flex;
+  }
+
+  .navbar-links li {
+    width: 100%;
+    text-align: center;
+  }
+}

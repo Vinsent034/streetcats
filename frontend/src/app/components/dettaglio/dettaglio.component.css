@@ -1,0 +1,248 @@
+.dettaglio-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem;
+}
+
+.caricamento {
+  text-align: center;
+  padding: 3rem;
+  color: #666;
+}
+
+.errore-box {
+  background-color: #ffe0e0;
+  color: #c0392b;
+  padding: 1.5rem;
+  border-radius: 10px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.errore-box a {
+  color: #2d6a4f;
+  font-weight: 700;
+}
+
+.dettaglio-card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+
+/* Foto grande */
+.foto-container {
+  width: 100%;
+  height: 350px;
+  overflow: hidden;
+}
+
+.foto-grande {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Info gatto */
+.info-gatto {
+  padding: 1.5rem;
+}
+
+.info-gatto h1 {
+  color: #2d6a4f;
+  margin: 0 0 0.5rem;
+  font-size: 1.8rem;
+}
+
+.meta {
+  display: flex;
+  gap: 1.5rem;
+  color: #888;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.descrizione {
+  line-height: 1.7;
+  color: #444;
+  margin-bottom: 1rem;
+}
+
+/* Stili per il markdown renderizzato */
+.descrizione h1, .descrizione h2, .descrizione h3 {
+  color: #2d6a4f;
+}
+
+.descrizione code {
+  background: #f0f0f0;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.btn-elimina {
+  background-color: #e74c3c;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 700;
+  font-family: 'Nunito', sans-serif;
+  transition: background-color 0.2s;
+}
+
+.btn-elimina:hover {
+  background-color: #c0392b;
+}
+
+/* Sezione mappa */
+.sezione-mappa {
+  padding: 1rem 1.5rem 1.5rem;
+  border-top: 1px solid #eee;
+}
+
+.sezione-mappa h2 {
+  color: #2d6a4f;
+  margin-bottom: 0.8rem;
+}
+
+.mappa-piccola {
+  width: 100%;
+  height: 250px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+/* Sezione commenti */
+.sezione-commenti {
+  padding: 1rem 1.5rem 1.5rem;
+  border-top: 1px solid #eee;
+}
+
+.sezione-commenti h2 {
+  color: #2d6a4f;
+  margin-bottom: 1rem;
+}
+
+.nessun-commento {
+  color: #aaa;
+  font-style: italic;
+}
+
+.commento-card {
+  background: #f8f9fa;
+  border-radius: 10px;
+  padding: 1rem;
+  margin-bottom: 0.8rem;
+  border-left: 3px solid #f4a261;
+}
+
+.commento-header {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 0.4rem;
+}
+
+.commento-header strong {
+  color: #2d6a4f;
+}
+
+.commento-data {
+  color: #aaa;
+  font-size: 0.8rem;
+}
+
+.btn-elimina-commento {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-left: auto;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+
+.btn-elimina-commento:hover {
+  opacity: 1;
+}
+
+.commento-testo {
+  margin: 0;
+  color: #444;
+  line-height: 1.5;
+}
+
+/* Form commento */
+.form-commento {
+  margin-top: 1.5rem;
+  background: #f0f7f4;
+  padding: 1.2rem;
+  border-radius: 10px;
+}
+
+.form-commento h3 {
+  color: #2d6a4f;
+  margin: 0 0 0.8rem;
+}
+
+.form-commento textarea {
+  width: 100%;
+  padding: 0.8rem;
+  border: 2px solid #b7e4c7;
+  border-radius: 8px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.95rem;
+  resize: vertical;
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+}
+
+.form-commento textarea:focus {
+  outline: none;
+  border-color: #2d6a4f;
+}
+
+.btn-pubblica {
+  margin-top: 0.8rem;
+  background-color: #2d6a4f;
+  color: #fff;
+  border: none;
+  padding: 0.6rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 700;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.95rem;
+  transition: background-color 0.2s;
+}
+
+.btn-pubblica:hover {
+  background-color: #40916c;
+}
+
+.login-prompt {
+  color: #888;
+  margin-top: 1rem;
+}
+
+.login-prompt a {
+  color: #2d6a4f;
+  font-weight: 700;
+}
+
+@media (max-width: 600px) {
+  .foto-container {
+    height: 220px;
+  }
+
+  .info-gatto h1 {
+    font-size: 1.4rem;
+  }
+
+  .meta {
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+}

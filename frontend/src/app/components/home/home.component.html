@@ -1,0 +1,33 @@
+<div class="home-container">
+
+  <!-- Titolo pagina -->
+  <div class="home-header">
+    <h1>🐱 Gatti di Napoli</h1>
+    <p>Clicca sui marker per vedere i gatti segnalati</p>
+  </div>
+
+  <!-- Messaggio errore -->
+  @if (errore) {
+    <div class="errore-box">
+      ⚠️ {{ errore }}
+    </div>
+  }
+
+  <!-- Indicatore di caricamento -->
+  @if (caricamento) {
+    <div class="caricamento">
+      <p>Caricamento gatti in corso...</p>
+    </div>
+  }
+
+  <!-- Contatore gatti -->
+  @if (!caricamento && !errore) {
+    <div class="contatore">
+      {{ gatti.length }} gatto/i segnalato/i
+    </div>
+  }
+
+  <!-- Mappa Leaflet -->
+  <div id="mappa-home" class="mappa"></div>
+
+</div>

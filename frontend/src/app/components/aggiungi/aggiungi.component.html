@@ -1,0 +1,88 @@
+<div class="aggiungi-container">
+
+  <div class="aggiungi-card">
+    <h1>🐱 Segnala un gatto</h1>
+    <p class="sottotitolo">Compila il form e clicca sulla mappa per indicare dove si trova il gatto</p>
+
+    <!-- Messaggio errore -->
+    @if (errore) {
+      <div class="errore-box">⚠️ {{ errore }}</div>
+    }
+
+    <form (ngSubmit)="pubblicaGatto()" class="form-aggiungi">
+
+      <!-- Titolo -->
+      <div class="campo">
+        <label for="titolo">Titolo *</label>
+        <input
+          id="titolo"
+          type="text"
+          [(ngModel)]="titolo"
+          name="titolo"
+          placeholder="Es: Gatto arancione al parco"
+          required
+        >
+      </div>
+
+      <!-- Descrizione (supporta Markdown) -->
+      <div class="campo">
+        <label for="descrizione">Descrizione * <span class="hint">(supporta Markdown)</span></label>
+        <textarea
+          id="descrizione"
+          [(ngModel)]="descrizione"
+          name="descrizione"
+          rows="5"
+          placeholder="Descrivi il gatto... Es: **Colore**: arancione, _molto amichevole_"
+          required
+        ></textarea>
+      </div>
+
+      <!-- Upload immagine -->
+      <div class="campo">
+        <label for="immagine">Foto del gatto *</label>
+        <input
+          id="immagine"
+          type="file"
+          accept="image/*"
+          (change)="onImmagineSelezionata($event)"
+          class="input-file"
+        >
+
+        <!-- Anteprima immagine -->
+        @if (anteprima) {
+          <img [src]="anteprima" alt="Anteprima" class="anteprima-img">
+        }
+      </div>
+
+      <!-- Mappa per selezionare la posizione -->
+      <div class="campo">
+        <label>Posizione sulla mappa * <span class="hint">(clicca per selezionare)</span></label>
+
+        @if (latitudine !== null) {
+          <p class="coordinate">
+            ✅ Coordinate: {{ latitudine | number:'1.4-4' }}, {{ longitudine | number:'1.4-4' }}
+          </p>
+        } @else {
+          <p class="coordinate-hint">👆 Clicca sulla mappa per posizionare il gatto</p>
+        }
+
+        <div id="mappa-aggiungi" class="mappa-selezione"></div>
+      </div>
+
+      <!-- Bottone pubblica -->
+      <button
+        type="submit"
+        class="btn-pubblica"
+        [disabled]="invio"
+      >
+        @if (invio) {
+          Pubblicazione in corso...
+        } @else {
+          🚀 Pubblica gatto
+        }
+      </button>
+
+    </form>
+  </div>
+
+</div>

@@ -1,0 +1,60 @@
+/* Stili globali StreetCats */
+
+/* Reset base */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Font Nunito da Google Fonts */
+body {
+  font-family: 'Nunito', sans-serif;
+  background-color: #f8fdf9;
+  color: #333;
+  min-height: 100vh;
+}
+
+/* Link di default */
+a {
+  color: #2d6a4f;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Scrollbar personalizzata (solo webkit) */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #b7e4c7;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #2d6a4f;
+}
+
+/* Stili popup Leaflet personalizzati */
+.popup-gatto {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.9rem;
+}
+
+.popup-gatto strong {
+  color: #2d6a4f;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.popup-gatto a:hover {
+  color: #f4a261;
+}

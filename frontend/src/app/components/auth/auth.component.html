@@ -1,0 +1,131 @@
+<div class="auth-container">
+  <div class="auth-card">
+
+    <!-- Logo -->
+    <div class="auth-logo">🐱 StreetCats</div>
+
+    <!-- Tab switcher Login / Registrazione -->
+    <div class="tab-switcher">
+      <button
+        class="tab-btn"
+        [class.attivo]="modalita === 'login'"
+        (click)="cambiaModalita('login')"
+      >
+        Login
+      </button>
+      <button
+        class="tab-btn"
+        [class.attivo]="modalita === 'registrazione'"
+        (click)="cambiaModalita('registrazione')"
+      >
+        Registrati
+      </button>
+    </div>
+
+    <!-- Messaggio errore -->
+    @if (errore) {
+      <div class="errore-box">⚠️ {{ errore }}</div>
+    }
+
+    <!-- Form Login -->
+    @if (modalita === 'login') {
+      <form (ngSubmit)="login()" class="form-auth">
+        <h2>Bentornato!</h2>
+        <p class="sottotitolo">Accedi per segnalare gatti randagi</p>
+
+        <div class="campo">
+          <label for="email-login">Email</label>
+          <input
+            id="email-login"
+            type="email"
+            [(ngModel)]="emailLogin"
+            name="emailLogin"
+            placeholder="la-tua@email.it"
+            required
+          >
+        </div>
+
+        <div class="campo">
+          <label for="password-login">Password</label>
+          <input
+            id="password-login"
+            type="password"
+            [(ngModel)]="passwordLogin"
+            name="passwordLogin"
+            placeholder="••••••••"
+            required
+          >
+        </div>
+
+        <button type="submit" class="btn-submit" [disabled]="caricamento">
+          @if (caricamento) { Accesso in corso... }
+          @else { Accedi }
+        </button>
+
+        <p class="switch-link">
+          Non hai un account?
+          <button type="button" class="link-btn" (click)="cambiaModalita('registrazione')">
+            Registrati
+          </button>
+        </p>
+      </form>
+    }
+
+    <!-- Form Registrazione -->
+    @if (modalita === 'registrazione') {
+      <form (ngSubmit)="registrazione()" class="form-auth">
+        <h2>Crea un account</h2>
+        <p class="sottotitolo">Unisciti alla community dei StreetCats</p>
+
+        <div class="campo">
+          <label for="nome-reg">Nome</label>
+          <input
+            id="nome-reg"
+            type="text"
+            [(ngModel)]="nomeRegistrazione"
+            name="nomeRegistrazione"
+            placeholder="Il tuo nome"
+            required
+          >
+        </div>
+
+        <div class="campo">
+          <label for="email-reg">Email</label>
+          <input
+            id="email-reg"
+            type="email"
+            [(ngModel)]="emailRegistrazione"
+            name="emailRegistrazione"
+            placeholder="la-tua@email.it"
+            required
+          >
+        </div>
+
+        <div class="campo">
+          <label for="password-reg">Password <span class="hint">(min 6 caratteri)</span></label>
+          <input
+            id="password-reg"
+            type="password"
+            [(ngModel)]="passwordRegistrazione"
+            name="passwordRegistrazione"
+            placeholder="••••••••"
+            required
+          >
+        </div>
+
+        <button type="submit" class="btn-submit" [disabled]="caricamento">
+          @if (caricamento) { Registrazione in corso... }
+          @else { Registrati }
+        </button>
+
+        <p class="switch-link">
+          Hai già un account?
+          <button type="button" class="link-btn" (click)="cambiaModalita('login')">
+            Accedi
+          </button>
+        </p>
+      </form>
+    }
+
+  </div>
+</div>

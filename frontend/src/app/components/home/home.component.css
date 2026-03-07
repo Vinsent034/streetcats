@@ -1,0 +1,52 @@
+.home-container {
+  padding: 0;
+}
+
+.home-header {
+  text-align: center;
+  padding: 1.5rem 1rem 0.5rem;
+  background: linear-gradient(135deg, #2d6a4f 0%, #40916c 100%);
+  color: #fff;
+}
+
+.home-header h1 {
+  margin: 0 0 0.3rem;
+  font-size: 2rem;
+}
+
+.home-header p {
+  margin: 0 0 1rem;
+  opacity: 0.85;
+  font-size: 0.95rem;
+}
+
+.errore-box {
+  background-color: #ffe0e0;
+  color: #c0392b;
+  padding: 1rem;
+  margin: 1rem;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.caricamento {
+  text-align: center;
+  padding: 1rem;
+  color: #666;
+}
+
+.contatore {
+  text-align: center;
+  padding: 0.5rem 1rem;
+  color: #2d6a4f;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+/* La mappa occupa 70vh */
+.mappa {
+  width: 100%;
+  height: 70vh;
+  min-height: 400px;
+}

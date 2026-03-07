@@ -1,0 +1,38 @@
+<nav class="navbar">
+  <div class="navbar-container">
+
+    <!-- Logo / Titolo -->
+    <a routerLink="/" class="navbar-logo" (click)="chiudiMenu()">
+      🐱 StreetCats
+    </a>
+
+    <!-- Hamburger button per mobile -->
+    <button class="hamburger" (click)="toggleMenu()" aria-label="Menu">
+      <span [class.aperto]="menuAperto"></span>
+      <span [class.aperto]="menuAperto"></span>
+      <span [class.aperto]="menuAperto"></span>
+    </button>
+
+    <!-- Link di navigazione -->
+    <ul class="navbar-links" [class.attivo]="menuAperto">
+      <li>
+        <a routerLink="/" (click)="chiudiMenu()">Home</a>
+      </li>
+
+      <!-- "Aggiungi Gatto" visibile solo se loggato -->
+      <li *ngIf="authService.isLoggato()">
+        <a routerLink="/aggiungi" (click)="chiudiMenu()">Aggiungi Gatto</a>
+      </li>
+
+      <!-- Bottone Login o Logout in base allo stato -->
+      <li *ngIf="!authService.isLoggato()">
+        <a routerLink="/auth" class="btn-nav" (click)="chiudiMenu()">Login</a>
+      </li>
+      <li *ngIf="authService.isLoggato()">
+        <span class="utente-nome">{{ authService.getUtente()?.nome }}</span>
+        <button class="btn-nav btn-logout" (click)="logout()">Logout</button>
+      </li>
+    </ul>
+
+  </div>
+</nav>
