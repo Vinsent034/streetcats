@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -33,7 +33,8 @@ export class AuthComponent {
   constructor(
     private apiService: ApiService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private cd: ChangeDetectorRef
   ) {}
 
   // Switcha tra login e registrazione
@@ -57,15 +58,15 @@ export class AuthComponent {
     this.apiService.login(this.emailLogin, this.passwordLogin).subscribe({
       next: (risposta) => {
         console.log('Login riuscito:', risposta.utente?.nome);
-        // Salvo token e utente nel localStorage
         this.authService.salvaLogin(risposta.token, risposta.utente);
-        // Navigo alla home
+        this.caricamento = false;
         this.router.navigate(['/']);
       },
       error: (err) => {
         console.error('Errore login:', err);
-        this.errore = err.error?.messaggio || 'Credenziali non valide.';
+        this.errore = err.error?.errore || err.error?.messaggio || 'Credenziali non valide.';
         this.caricamento = false;
+        this.cd.detectChanges();
       }
     });
   }
@@ -93,15 +94,15 @@ export class AuthComponent {
     ).subscribe({
       next: (risposta) => {
         console.log('Registrazione riuscita:', risposta.utente?.nome);
-        // Salvo token e utente nel localStorage
         this.authService.salvaLogin(risposta.token, risposta.utente);
-        // Navigo alla home
+        this.caricamento = false;
         this.router.navigate(['/']);
       },
       error: (err) => {
         console.error('Errore registrazione:', err);
-        this.errore = err.error?.messaggio || 'Errore durante la registrazione.';
+        this.errore = err.error?.errore || err.error?.messaggio || 'Errore durante la registrazione.';
         this.caricamento = false;
+        this.cd.detectChanges();
       }
     });
   }

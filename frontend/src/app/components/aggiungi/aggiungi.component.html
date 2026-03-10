@@ -26,7 +26,10 @@
 
       <!-- Descrizione (supporta Markdown) -->
       <div class="campo">
-        <label for="descrizione">Descrizione * <span class="hint">(supporta Markdown)</span></label>
+        <label for="descrizione">
+          Descrizione *
+          <span class="hint">(supporta Markdown: **grassetto**, *corsivo*, [link](url))</span>
+        </label>
         <textarea
           id="descrizione"
           [(ngModel)]="descrizione"
@@ -35,6 +38,12 @@
           placeholder="Descrivi il gatto... Es: **Colore**: arancione, _molto amichevole_"
           required
         ></textarea>
+        <button type="button" class="btn-anteprima" (click)="mostraAnteprima = !mostraAnteprima">
+          {{ mostraAnteprima ? 'Nascondi anteprima' : 'Mostra anteprima Markdown' }}
+        </button>
+        @if (mostraAnteprima) {
+          <div class="anteprima-markdown" [innerHTML]="getAnteprimaMarkdown()"></div>
+        }
       </div>
 
       <!-- Upload immagine -->

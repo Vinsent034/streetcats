@@ -27,6 +27,12 @@ app.get('/', (req, res) => {
   res.json({ messaggio: 'API StreetCats funzionante!' });
 });
 
+// Gestione errori globale (cattura errori non gestiti dai controller)
+app.use((err, req, res, next) => {
+  console.error('Errore non gestito:', err.message);
+  res.status(err.status || 500).json({ errore: err.message || 'Errore interno del server.' });
+});
+
 // Avvio il server
 const PORTA = process.env.PORT || 3005;
 app.listen(PORTA, () => {

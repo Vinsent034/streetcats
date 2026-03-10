@@ -2,6 +2,9 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { marked } from 'marked';
+import DOMPurify from 'dompurify';
 import * as L from 'leaflet';
 import { ApiService } from '../../services/api.service';
 import { AuthService } from '../../services/auth.service';
@@ -38,6 +41,7 @@ export class AggiungiComponent implements OnInit, AfterViewInit {
   // Stato UI
   invio = false;
   errore = '';
+  mostraAnteprima = false;
 
   // Mappa Leaflet
   mappa: L.Map | null = null;
@@ -46,8 +50,20 @@ export class AggiungiComponent implements OnInit, AfterViewInit {
   constructor(
     private apiService: ApiService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private sanitizer: DomSanitizer
   ) {}
+
+  // Converte il Markdown della descrizione in HTML sicuro per l'anteprima
+  getAnteprimaMarkdown(): SafeHtml {
+    if (!this.descrizione.trim()) return this.sanitizer.bypassSecurityTrustHtml('<em>Nessun contenuto ancora...</em>');
+    const rawHtml = marked.parse(this.descrizione) as string;
+    const safeHtml = DOMPurify.sanitize(rawHtml, {
+      ALLOWED_TAGS: ['p', 'br', 'strong', 'em', 'a', 'ul', 'ol', 'li', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'blockquote', 'code', 'pre', 'hr'],
+      ALLOWED_ATTR: ['href', 'title', 'target', 'rel']
+    });
+    return this.sanitizer.bypassSecurityTrustHtml(safeHtml);
+  }
 
   ngOnInit(): void {
     // Se non loggato, redirect al login

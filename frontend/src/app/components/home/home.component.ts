@@ -1,5 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import * as L from 'leaflet';
 import { ApiService, Gatto } from '../../services/api.service';
 
@@ -29,7 +28,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   caricamento = true;
   errore = '';
 
-  constructor(private apiService: ApiService, private router: Router) {}
+  constructor(private apiService: ApiService, private cd: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     // Carico i gatti dal backend
@@ -52,6 +51,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
         this.gatti = risposta.gatti || [];
         console.log('Gatti caricati:', this.gatti.length);
         this.caricamento = false;
+        this.cd.detectChanges();
         // Aggiungo i marker sulla mappa (se già inizializzata)
         if (this.mappa) {
           this.aggiungiMarker();
@@ -61,6 +61,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
         console.error('Errore caricamento gatti:', err);
         this.errore = 'Errore nel caricamento dei gatti. Assicurati che il backend sia avviato.';
         this.caricamento = false;
+        this.cd.detectChanges();
       }
     });
   }
@@ -102,8 +103,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
                style="width:80px;height:80px;object-fit:cover;border-radius:8px;display:block;margin-bottom:6px;"
                onerror="this.src='assets/no-image.png'">
           <strong>${gatto.titolo}</strong><br>
-          <a href="/dettaglio/${gatto.id}"
-             style="color:#2d6a4f;font-weight:bold;text-decoration:none;">
+          <a onclick="window.location.assign('/dettaglio/${gatto.id}')"
+             style="color:#2d6a4f;font-weight:bold;text-decoration:none;cursor:pointer;">
             Vedi dettaglio →
           </a>
         </div>

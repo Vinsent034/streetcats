@@ -114,6 +114,44 @@
   cursor: crosshair;
 }
 
+/* Bottone anteprima Markdown */
+.btn-anteprima {
+  background: none;
+  border: 1px solid #b7e4c7;
+  color: #2d6a4f;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-family: 'Nunito', sans-serif;
+  cursor: pointer;
+  width: fit-content;
+  transition: background-color 0.2s;
+}
+
+.btn-anteprima:hover {
+  background-color: #f0faf4;
+}
+
+/* Box anteprima Markdown */
+.anteprima-markdown {
+  border: 1px solid #b7e4c7;
+  border-radius: 8px;
+  padding: 1rem;
+  background: #f8fdf9;
+  min-height: 60px;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.anteprima-markdown p { margin: 0 0 0.5rem; }
+.anteprima-markdown strong { font-weight: 700; }
+.anteprima-markdown em { font-style: italic; }
+.anteprima-markdown a { color: #2d6a4f; }
+.anteprima-markdown ul, .anteprima-markdown ol { padding-left: 1.5rem; }
+.anteprima-markdown code { background: #e8f5e9; padding: 0.1rem 0.3rem; border-radius: 4px; font-size: 0.9em; }
+.anteprima-markdown pre { background: #e8f5e9; padding: 0.8rem; border-radius: 8px; overflow-x: auto; }
+.anteprima-markdown blockquote { border-left: 3px solid #b7e4c7; margin: 0; padding-left: 0.8rem; color: #666; }
+
 /* Bottone pubblica */
 .btn-pubblica {
   background-color: #f4a261;

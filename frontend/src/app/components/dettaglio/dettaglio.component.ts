@@ -1,9 +1,10 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { marked } from 'marked';
+import DOMPurify from 'dompurify';
 import * as L from 'leaflet';
 import { ApiService, Gatto, Commento } from '../../services/api.service';
 import { AuthService } from '../../services/auth.service';
@@ -41,7 +42,8 @@ export class DettaglioComponent implements OnInit, AfterViewInit {
     private router: Router,
     private apiService: ApiService,
     public authService: AuthService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private cd: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -69,6 +71,7 @@ export class DettaglioComponent implements OnInit, AfterViewInit {
         this.gatto = risposta.gatto;
         console.log('Gatto caricato:', this.gatto?.titolo);
         this.caricamento = false;
+        this.cd.detectChanges();
         // Inizializzo la mappa ora che ho le coordinate
         setTimeout(() => this.inizializzaMappaDettaglio(), 100);
       },
@@ -76,6 +79,7 @@ export class DettaglioComponent implements OnInit, AfterViewInit {
         console.error('Errore caricamento gatto:', err);
         this.errore = 'Gatto non trovato.';
         this.caricamento = false;
+        this.cd.detectChanges();
       }
     });
   }
@@ -86,6 +90,7 @@ export class DettaglioComponent implements OnInit, AfterViewInit {
       next: (risposta) => {
         this.commenti = risposta.commenti || [];
         console.log('Commenti caricati:', this.commenti.length);
+        this.cd.detectChanges();
       },
       error: (err) => {
         console.error('Errore caricamento commenti:', err);
@@ -93,11 +98,14 @@ export class DettaglioComponent implements OnInit, AfterViewInit {
     });
   }
 
-  // Converte il testo Markdown in HTML sicuro
+  // Converte il testo Markdown in HTML sicuro (sanitizzato con DOMPurify)
   parseMarkdown(testo: string): SafeHtml {
-    const html = marked.parse(testo) as string;
-    // Sanitizzo l'HTML per sicurezza
-    return this.sanitizer.bypassSecurityTrustHtml(html);
+    const rawHtml = marked.parse(testo) as string;
+    const safeHtml = DOMPurify.sanitize(rawHtml, {
+      ALLOWED_TAGS: ['p', 'br', 'strong', 'em', 'a', 'ul', 'ol', 'li', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'blockquote', 'code', 'pre', 'hr'],
+      ALLOWED_ATTR: ['href', 'title', 'target', 'rel']
+    });
+    return this.sanitizer.bypassSecurityTrustHtml(safeHtml);
   }
 
   // Inizializza la mappa piccola con la posizione del gatto

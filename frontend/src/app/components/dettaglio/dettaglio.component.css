@@ -70,14 +70,49 @@
 }
 
 /* Stili per il markdown renderizzato */
-.descrizione h1, .descrizione h2, .descrizione h3 {
+.descrizione h1, .descrizione h2, .descrizione h3,
+.descrizione h4, .descrizione h5, .descrizione h6 {
   color: #2d6a4f;
+  margin: 0.8rem 0 0.4rem;
+}
+
+.descrizione p { margin: 0 0 0.6rem; }
+
+.descrizione a {
+  color: #2d6a4f;
+  text-decoration: underline;
+}
+
+.descrizione a:hover { color: #40916c; }
+
+.descrizione strong { font-weight: 700; }
+.descrizione em { font-style: italic; }
+
+.descrizione ul, .descrizione ol {
+  padding-left: 1.5rem;
+  margin: 0.4rem 0 0.6rem;
 }
 
 .descrizione code {
-  background: #f0f0f0;
+  background: #e8f5e9;
   padding: 2px 6px;
   border-radius: 4px;
+  font-size: 0.9em;
+}
+
+.descrizione pre {
+  background: #e8f5e9;
+  padding: 0.8rem;
+  border-radius: 8px;
+  overflow-x: auto;
+}
+
+.descrizione blockquote {
+  border-left: 3px solid #b7e4c7;
+  margin: 0.5rem 0;
+  padding-left: 0.8rem;
+  color: #666;
+  font-style: italic;
 }
 
 .btn-elimina {
