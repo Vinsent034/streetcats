@@ -14,7 +14,4 @@ router.get('/:id', catController.getGatto);
 // POST /api/cats - Crea nuovo gatto (autenticazione + upload immagine)
 router.post('/', authenticate, upload.single('immagine'), catController.creaGatto);
 
-// DELETE /api/cats/:id - Elimina gatto (autenticazione)
-router.delete('/:id', authenticate, catController.eliminaGatto);
-
 module.exports = router;

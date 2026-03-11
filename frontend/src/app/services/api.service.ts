@@ -87,14 +87,6 @@ export class ApiService {
     });
   }
 
-  // Elimina un gatto per ID
-  eliminaGatto(id: number): Observable<any> {
-    console.log('Chiamata eliminaGatto, id:', id);
-    return this.http.delete(`${this.BASE_URL}/cats/${id}`, {
-      headers: this.getHeadersAuth()
-    });
-  }
-
   // ===== COMMENTI =====
 
   // Ottieni commenti di un gatto
@@ -107,14 +99,6 @@ export class ApiService {
   aggiungiCommento(gattoId: number, testo: string): Observable<any> {
     console.log('Chiamata aggiungiCommento per gatto:', gattoId);
     return this.http.post(`${this.BASE_URL}/comments/${gattoId}`, { testo }, {
-      headers: this.getHeadersAuth()
-    });
-  }
-
-  // Elimina un commento per ID
-  eliminaCommento(id: number): Observable<any> {
-    console.log('Chiamata eliminaCommento, id:', id);
-    return this.http.delete(`${this.BASE_URL}/comments/${id}`, {
       headers: this.getHeadersAuth()
     });
   }

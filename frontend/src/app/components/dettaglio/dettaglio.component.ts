@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit, ChangeDetectorRef } from '@angular/core';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
@@ -39,7 +39,6 @@ export class DettaglioComponent implements OnInit, AfterViewInit {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
     private apiService: ApiService,
     public authService: AuthService,
     private sanitizer: DomSanitizer,
@@ -156,39 +155,6 @@ export class DettaglioComponent implements OnInit, AfterViewInit {
     });
   }
 
-  // Elimina il gatto (solo autore)
-  eliminaGatto(): void {
-    if (!confirm('Sicuro di voler eliminare questo gatto?')) return;
-
-    this.apiService.eliminaGatto(this.gatto!.id).subscribe({
-      next: () => {
-        console.log('Gatto eliminato');
-        this.router.navigate(['/']);
-      },
-      error: (err) => {
-        console.error('Errore eliminazione gatto:', err);
-        alert('Errore nell\'eliminazione del gatto.');
-      }
-    });
-  }
-
-  // Elimina un commento (solo autore)
-  eliminaCommento(commentoId: number): void {
-    if (!confirm('Elimina questo commento?')) return;
-
-    this.apiService.eliminaCommento(commentoId).subscribe({
-      next: () => {
-        console.log('Commento eliminato:', commentoId);
-        // Rimuovo il commento dalla lista locale
-        this.commenti = this.commenti.filter(c => c.id !== commentoId);
-      },
-      error: (err) => {
-        console.error('Errore eliminazione commento:', err);
-        alert('Errore nell\'eliminazione del commento.');
-      }
-    });
-  }
-
   // Formatta la data in italiano
   formattaData(dataStr: string): string {
     const data = new Date(dataStr);
@@ -197,20 +163,6 @@ export class DettaglioComponent implements OnInit, AfterViewInit {
       month: 'long',
       year: 'numeric'
     });
-  }
-
-  // Controlla se l'utente loggato è l'autore del gatto
-  isAutoreGatto(): boolean {
-    const utente = this.authService.getUtente();
-    if (!utente || !this.gatto) return false;
-    return utente.id === this.gatto.autore_id;
-  }
-
-  // Controlla se l'utente loggato è l'autore del commento
-  isAutoreCommento(commento: Commento): boolean {
-    const utente = this.authService.getUtente();
-    if (!utente) return false;
-    return utente.id === commento.autore_id;
   }
 
   // Costruisce l'URL completo dell'immagine

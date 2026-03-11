@@ -41,13 +41,6 @@
 
         <!-- Descrizione in Markdown -->
         <div class="descrizione" [innerHTML]="parseMarkdown(gatto.descrizione)"></div>
-
-        <!-- Bottone elimina gatto (solo per autore) -->
-        @if (isAutoreGatto()) {
-          <button class="btn-elimina" (click)="eliminaGatto()">
-            🗑️ Elimina gatto
-          </button>
-        }
       </div>
 
       <!-- Mappa piccola con posizione -->
@@ -70,13 +63,6 @@
             <div class="commento-header">
               <strong>{{ commento.autore_nome }}</strong>
               <span class="commento-data">{{ formattaData(commento.creato_il) }}</span>
-
-              <!-- Elimina commento (solo autore) -->
-              @if (isAutoreCommento(commento)) {
-                <button class="btn-elimina-commento" (click)="eliminaCommento(commento.id)">
-                  🗑️
-                </button>
-              }
             </div>
             <p class="commento-testo">{{ commento.testo }}</p>
           </div>

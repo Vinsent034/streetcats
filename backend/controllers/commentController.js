@@ -66,36 +66,4 @@ const creaCommento = async (req, res) => {
   }
 };
 
-// DELETE /api/comments/:id - Elimina commento (solo il proprietario)
-const eliminaCommento = async (req, res) => {
-  const { id } = req.params;
-  console.log('commentController.eliminaCommento: richiesta per commento id:', id, 'da utente id:', req.user.id);
-
-  try {
-    // Recupero il commento per verificare il proprietario
-    const commentoDaTrovare = await pool.query('SELECT autore_id FROM commenti WHERE id = $1', [id]);
-
-    if (commentoDaTrovare.rows.length === 0) {
-      console.log('commentController.eliminaCommento: commento non trovato, id:', id);
-      return res.status(404).json({ errore: 'Commento non trovato.' });
-    }
-
-    const commento = commentoDaTrovare.rows[0];
-
-    // Controllo autorizzazione: solo il proprietario può eliminare
-    if (req.user.id !== commento.autore_id) {
-      console.log('commentController.eliminaCommento: utente non autorizzato');
-      return res.status(403).json({ errore: 'Non sei autorizzato a eliminare questo commento.' });
-    }
-
-    await pool.query('DELETE FROM commenti WHERE id = $1', [id]);
-    console.log('commentController.eliminaCommento: commento eliminato, id:', id);
-
-    res.json({ messaggio: 'Commento eliminato con successo.' });
-  } catch (errore) {
-    console.error('commentController.eliminaCommento: errore -', errore.message);
-    res.status(500).json({ errore: 'Errore interno del server.' });
-  }
-};
-
-module.exports = { getCommenti, creaCommento, eliminaCommento };
+module.exports = { getCommenti, creaCommento };

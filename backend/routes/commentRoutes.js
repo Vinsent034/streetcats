@@ -10,7 +10,4 @@ router.get('/:gattoId', commentController.getCommenti);
 // POST /api/comments/:gattoId - Aggiungi commento (autenticazione)
 router.post('/:gattoId', authenticate, commentController.creaCommento);
 
-// DELETE /api/comments/:id - Elimina commento (autenticazione)
-router.delete('/:id', authenticate, commentController.eliminaCommento);
-
 module.exports = router;

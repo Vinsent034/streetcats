@@ -86,36 +86,4 @@ const creaGatto = async (req, res) => {
   }
 };
 
-// DELETE /api/cats/:id - Elimina gatto (solo il proprietario)
-const eliminaGatto = async (req, res) => {
-  const { id } = req.params;
-  console.log('catController.eliminaGatto: richiesta per gatto id:', id, 'da utente id:', req.user.id);
-
-  try {
-    // Prima recupero il gatto per verificare il proprietario
-    const gattoDaTrovare = await pool.query('SELECT autore_id FROM gatti WHERE id = $1', [id]);
-
-    if (gattoDaTrovare.rows.length === 0) {
-      console.log('catController.eliminaGatto: gatto non trovato, id:', id);
-      return res.status(404).json({ errore: 'Gatto non trovato.' });
-    }
-
-    const gatto = gattoDaTrovare.rows[0];
-
-    // Controllo autorizzazione: solo il proprietario può eliminare
-    if (req.user.id !== gatto.autore_id) {
-      console.log('catController.eliminaGatto: utente non autorizzato');
-      return res.status(403).json({ errore: 'Non sei autorizzato a eliminare questo gatto.' });
-    }
-
-    await pool.query('DELETE FROM gatti WHERE id = $1', [id]);
-    console.log('catController.eliminaGatto: gatto eliminato con successo, id:', id);
-
-    res.json({ messaggio: 'Gatto eliminato con successo.' });
-  } catch (errore) {
-    console.error('catController.eliminaGatto: errore -', errore.message);
-    res.status(500).json({ errore: 'Errore interno del server.' });
-  }
-};
-
-module.exports = { getTuttiGatti, getGatto, creaGatto, eliminaGatto };
+module.exports = { getTuttiGatti, getGatto, creaGatto };
