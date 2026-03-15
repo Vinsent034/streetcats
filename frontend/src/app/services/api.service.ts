@@ -29,8 +29,8 @@ export interface Commento {
 })
 export class ApiService {
 
-  // URL base del backend
-  private BASE_URL = 'http://localhost:3005/api';
+  // URL base del backend (relativo, usa il proxy Angular configurato in proxy.conf.json)
+  private BASE_URL = '/api';
 
   constructor(private http: HttpClient, private authService: AuthService) {
     console.log('ApiService inizializzato, URL base:', this.BASE_URL);
@@ -103,8 +103,8 @@ export class ApiService {
     });
   }
 
-  // Costruisce l'URL completo per un'immagine
+  // Costruisce l'URL per un'immagine (relativo, usa il proxy Angular)
   getUrlImmagine(nomeFile: string): string {
-    return `http://localhost:3005/uploads/${nomeFile}`;
+    return `/uploads/${nomeFile}`;
   }
 }
