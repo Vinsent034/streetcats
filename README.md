@@ -5,7 +5,51 @@ Gli utenti possono esplorare i gatti su una mappa interattiva, segnalare nuovi a
 
 ---
 
-## Prerequisiti
+## Avvio con Docker (consigliato)
+
+Il modo più semplice per avviare l'intero stack (database, backend, frontend) senza installare nulla localmente.
+
+### Prerequisiti
+
+- **Docker Desktop** installato e in esecuzione
+
+### Avvio
+
+```bash
+docker compose up --build
+```
+
+Alla prima esecuzione Docker costruisce le immagini e crea il database automaticamente. Una volta avviato:
+
+- Frontend → `http://localhost:4200`
+- Backend API → `http://localhost:3005`
+
+### Altri comandi utili
+
+```bash
+# avviare in background
+docker compose up --build -d
+
+# fermare tutto
+docker compose down
+
+# fermare tutto e cancellare anche il database
+docker compose down -v
+
+# vedere i log in tempo reale
+docker compose logs -f
+
+# ricostruire solo un servizio (es. dopo modifiche al codice)
+docker compose up --build backend
+```
+
+> **Nota:** le immagini caricate dagli utenti (`/uploads`) e i dati del database sono salvati in volumi Docker persistenti: non vanno persi tra un riavvio e l'altro.
+
+---
+
+## Avvio manuale (senza Docker)
+
+### Prerequisiti
 
 - **Node.js** (versione 18 o superiore)
 - **npm** (incluso con Node.js)
