@@ -58,15 +58,15 @@ export class AuthComponent {
     this.apiService.login(this.emailLogin, this.passwordLogin).subscribe({
       next: (risposta) => {
         console.log('Login riuscito:', risposta.utente?.nome);
-        this.authService.salvaLogin(risposta.token, risposta.utente);
+        this.authService.salvaLogin(risposta.token, risposta.utente); // salva nel local storage i due token permettendo all'utente di rimanere loggato se rientreasse dopo essere uscito
         this.caricamento = false;
-        this.router.navigate(['/']);
+        this.router.navigate(['/']); // carica alla home 
       },
       error: (err) => {
         console.error('Errore login:', err);
         this.errore = err.error?.errore || err.error?.messaggio || 'Credenziali non valide.';
         this.caricamento = false;
-        this.cd.detectChanges();
+        this.cd.detectChanges(); 
       }
     });
   }
@@ -94,9 +94,9 @@ export class AuthComponent {
     ).subscribe({
       next: (risposta) => {
         console.log('Registrazione riuscita:', risposta.utente?.nome);
-        this.authService.salvaLogin(risposta.token, risposta.utente);
+        this.authService.salvaLogin(risposta.token, risposta.utente); //  salva nel local storage i due token permettendo all'utente di rimanere loggato se rientreasse dopo essere uscito
         this.caricamento = false;
-        this.router.navigate(['/']);
+        this.router.navigate(['/']); // ricarica la home 
       },
       error: (err) => {
         console.error('Errore registrazione:', err);

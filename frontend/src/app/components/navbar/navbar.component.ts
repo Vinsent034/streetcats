@@ -17,7 +17,7 @@ export class NavbarComponent {
 
   constructor(public authService: AuthService, private router: Router) {}
 
-  // Apre/chiude il menu hamburger su mobile
+  // Apre/chiude il menu
   toggleMenu(): void {
     this.menuAperto = !this.menuAperto;
     console.log('Menu mobile:', this.menuAperto ? 'aperto' : 'chiuso');
@@ -25,8 +25,8 @@ export class NavbarComponent {
 
   // Effettua il logout e naviga alla home
   logout(): void {
-    this.authService.logout();
-    this.router.navigate(['/']);
+    this.authService.logout(); // qui non chiama quella del backend , ma quella del local storage  che cancella il token dell'utente
+    this.router.navigate(['/']); // qui reindirizza l'utetne alla home page dopo il logout
     this.menuAperto = false;
   }
 

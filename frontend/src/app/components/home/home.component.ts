@@ -46,15 +46,15 @@ export class HomeComponent implements OnInit, AfterViewInit {
   // Carica tutti i gatti dal backend
   caricaGatti(): void {
     console.log('HomeComponent: carico gatti...');
-    this.apiService.getGatti().subscribe({
+    this.apiService.getGatti().subscribe({ // la funzione che recupera tutti i fatti e ne resituisce un array
       next: (risposta) => {
-        this.gatti = risposta.gatti || [];
+        this.gatti = risposta.gatti || []; // assegna la lista di gatti o un array vuoto se non ce ne sono
         console.log('Gatti caricati:', this.gatti.length);
         this.caricamento = false;
-        this.cd.detectChanges();
+        this.cd.detectChanges(); //aggiorno per mostrare i gatto con cmabimanti dopo un operazione 
         // Aggiungo i marker sulla mappa (se già inizializzata)
         if (this.mappa) {
-          this.aggiungiMarker();
+          this.aggiungiMarker(); // aggiunge solo i marker in corispondenza del gatto
         }
       },
       error: (err) => {
