@@ -142,6 +142,61 @@ frontend/src/app/
 
 ---
 
+## Test E2E (Playwright)
+
+I test end-to-end si trovano in `frontend/e2e/` e usano Playwright con Chromium.
+
+### Prerequisiti
+
+Prima di eseguire i test assicurarsi che backend e frontend siano entrambi in esecuzione (vedi **Ordine di avvio**).
+
+### Installare i browser di Playwright (solo la prima volta)
+
+```bash
+cd frontend
+npx playwright install chromium
+```
+
+### Eseguire tutti i test
+
+```bash
+cd frontend
+npx playwright test
+```
+
+### Comandi utili
+
+```bash
+# eseguire un singolo file di test
+npx playwright test e2e/auth-credenziali-errate.spec.ts
+
+# modalità UI interattiva (consigliata per sviluppo)
+npx playwright test --ui
+
+# con browser visibile
+npx playwright test --headed
+
+# visualizzare il report HTML dopo l'esecuzione
+npx playwright show-report
+```
+
+### Test disponibili
+
+| File | Cosa verifica |
+|---|---|
+| `homepage-titolo.spec.ts` | La homepage si carica e mostra il titolo |
+| `homepage-mappa.spec.ts` | La mappa Leaflet viene renderizzata |
+| `navbar-login-non-autenticato.spec.ts` | La navbar mostra Login se non autenticato |
+| `navbar-click-login.spec.ts` | Click su Login naviga alla pagina auth |
+| `auth-form-login.spec.ts` | La pagina auth mostra il form di login |
+| `auth-switch-tab.spec.ts` | Switch tra tab Login e Registrazione |
+| `auth-credenziali-errate.spec.ts` | Login con credenziali errate mostra errore |
+| `auth-registrazione-campi-vuoti.spec.ts` | Registrazione con campi vuoti mostra errore |
+| `aggiungi-redirect-non-loggato.spec.ts` | La pagina aggiungi redirige a auth se non loggato |
+| `dettaglio-gatto-inesistente.spec.ts` | Dettaglio gatto inesistente mostra errore |
+
+---
+
 ## Tecnologie utilizzate
 
 **Back-end:** Node.js, Express 5, PostgreSQL, JSON Web Token, bcryptjs, Multer, dotenv, cors
