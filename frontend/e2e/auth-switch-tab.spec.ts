@@ -7,9 +7,9 @@ test.beforeEach(async ({ page }) => {
 
 test('switch tra tab Login e Registrazione funziona', async ({ page }) => {
   await page.goto('/auth');
-  await page.getByText('Registrati').click();
+  await page.getByRole('button', { name: 'Registrati' }).first().click();
   const campoNome = page.locator('input[placeholder*="nome"], input[name="nome"]').first();
   await expect(campoNome).toBeVisible();
-  await page.getByText('Login').click();
+  await page.getByRole('button', { name: 'Login' }).first().click();
   await expect(campoNome).not.toBeVisible();
 });

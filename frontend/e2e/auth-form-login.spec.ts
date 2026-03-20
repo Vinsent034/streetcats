@@ -9,5 +9,5 @@ test('la pagina auth mostra il form di login', async ({ page }) => {
   await page.goto('/auth');
   await expect(page.locator('input[type="email"]')).toBeVisible();
   await expect(page.locator('input[type="password"]')).toBeVisible();
-  await expect(page.getByText('Accedi')).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Accedi' })).toBeVisible();
 });
