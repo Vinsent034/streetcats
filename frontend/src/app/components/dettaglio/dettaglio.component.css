@@ -34,14 +34,17 @@
 /* Foto grande */
 .foto-container {
   width: 100%;
-  height: 350px;
+  max-height: 500px;
   overflow: hidden;
+  background: #1a1a1a;
 }
 
 .foto-grande {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: auto;
+  max-height: 500px;
+  object-fit: contain;
+  display: block;
 }
 
 /* Info gatto */
@@ -79,7 +82,7 @@
 .descrizione p { margin: 0 0 0.6rem; }
 
 .descrizione a {
-  color: #2d6a4f;
+  color: #1a73e8;
   text-decoration: underline;
 }
 
@@ -269,7 +272,7 @@
 
 @media (max-width: 600px) {
   .foto-container {
-    height: 220px;
+    max-height: 300px;
   }
 
   .info-gatto h1 {

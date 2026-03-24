@@ -36,6 +36,7 @@ export class DettaglioComponent implements OnInit, AfterViewInit {
   caricamento = true;
   errore = '';
   mappaDettaglio: L.Map | null = null;
+  caricatoIl = Date.now();
 
   constructor(
     private route: ActivatedRoute,
@@ -102,9 +103,17 @@ export class DettaglioComponent implements OnInit, AfterViewInit {
     const rawHtml = marked.parse(testo) as string;
     const safeHtml = DOMPurify.sanitize(rawHtml, {
       ALLOWED_TAGS: ['p', 'br', 'strong', 'em', 'a', 'ul', 'ol', 'li', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'blockquote', 'code', 'pre', 'hr'],
-      ALLOWED_ATTR: ['href', 'title', 'target', 'rel']
+      ALLOWED_ATTR: ['href', 'title', 'target', 'rel'],
+      ADD_ATTR: ['target']
     });
-    return this.sanitizer.bypassSecurityTrustHtml(safeHtml);
+    // Apre tutti i link in nuova tab
+    const doc = new DOMParser().parseFromString(safeHtml, 'text/html');
+    doc.querySelectorAll('a').forEach(a => {
+      a.setAttribute('target', '_blank');
+      a.setAttribute('rel', 'noopener noreferrer');
+    });
+    const finalHtml = doc.body.innerHTML;
+    return this.sanitizer.bypassSecurityTrustHtml(finalHtml);
   }
 
   // Inizializza la mappa piccola con la posizione del gatto
@@ -167,6 +176,6 @@ export class DettaglioComponent implements OnInit, AfterViewInit {
 
   // Costruisce l'URL completo dell'immagine
   getUrlImmagine(nomeFile: string): string {
-    return this.apiService.getUrlImmagine(nomeFile);
+    return this.apiService.getUrlImmagine(nomeFile) + '?t=' + this.caricatoIl;
   }
 }

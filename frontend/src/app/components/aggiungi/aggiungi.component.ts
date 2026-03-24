@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -51,7 +51,8 @@ export class AggiungiComponent implements OnInit, AfterViewInit {
     private apiService: ApiService,
     private authService: AuthService,
     private router: Router,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private cd: ChangeDetectorRef
   ) {}
 
   // Converte il Markdown della descrizione in HTML sicuro per l'anteprima
@@ -121,6 +122,7 @@ export class AggiungiComponent implements OnInit, AfterViewInit {
       const reader = new FileReader();
       reader.onload = (e) => {
         this.anteprima = e.target?.result as string;
+        this.cd.detectChanges();
       };
       reader.readAsDataURL(this.immagineFile);
     }
@@ -161,8 +163,10 @@ export class AggiungiComponent implements OnInit, AfterViewInit {
     this.apiService.creaGatto(formData).subscribe({
       next: (risposta) => {
         console.log('Gatto creato con id:', risposta.gatto?.id);
-        // Naviga al dettaglio del gatto appena creato
-        this.router.navigate(['/dettaglio', risposta.gatto.id]);
+        // Piccolo delay per assicurarsi che l'immagine sia disponibile sul server
+        setTimeout(() => {
+          this.router.navigate(['/dettaglio', risposta.gatto.id]);
+        }, 500);
       },
       error: (err) => {
         console.error('Errore creazione gatto:', err);
