@@ -3,3 +3,6 @@ node_modules/
 uploads/
 dist/
 build/
+
+# configurazione locale degli strumenti di sviluppo
+.claude/
