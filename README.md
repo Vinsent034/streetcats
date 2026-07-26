@@ -149,9 +149,9 @@ npx playwright show-report        # report HTML
 
 ## Tecnologie
 
-**Back-end** — Node.js, Express 5, PostgreSQL, jsonwebtoken, bcryptjs, Multer, dotenv, cors
-**Front-end** — Angular 21 (standalone components), TypeScript, Leaflet, Marked, DOMPurify, RxJS
-**Test** — Playwright
+- **Back-end** — Node.js, Express 5, PostgreSQL, jsonwebtoken, bcryptjs, Multer, dotenv, cors
+- **Front-end** — Angular 21 (standalone components), TypeScript, Leaflet, Marked, DOMPurify, RxJS
+- **Test** — Playwright
 
 ---
 
